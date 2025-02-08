@@ -23,7 +23,7 @@ In this implementation:
   - `Remove()`: Removes an observer from the list.
   - `Broadcast()`: Notifies all observers that the state has changed.
   - `LatestState()`: Returns the current state.
-  - `UpdateState()`: Method that changes the state every 3 seconds and calls `Broadcast()`.
+  - `UpdateState()`: Method to change the state.
 
 ### Observer
 
@@ -37,11 +37,10 @@ In this implementation:
 
 ## How It Works
 
-1. **Initialization**: The subject is initialized and starts changing its state every 3 seconds.
-2. **Observer Registration**: Observers register themselves with the subject.
-3. **State Change**: The subject changes its state and calls `notify_observers()`.
-4. **Notification**: Each observer's `update()` method is triggered.
-5. **State Request**: Observers call `get_latest_state()` to get the updated state from the subject.
+1. **Subject Initialization**: The subject starts with a modifiable list of observer URLs.
+2. **Observer Initialization**: Observers starts with the subject URL.
+3. **State Change**: The subject changes its state and broadcasts the change to all observers.
+4. **Notification**: Each observer's `Notify()` method is triggered and the observer requests the latest state from the subject.
 
 ## Getting Started
 
