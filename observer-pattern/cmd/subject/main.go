@@ -14,10 +14,8 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/twirp/subject.Subject/", pb.NewSubjectServer(&subject.Subject{
 		State: "initial",
-		Observers: []subject.Observer{
-			{
-				Url: "localhost:54321",
-			},
+		Observers: []pb.Observer{
+			pb.NewObserverProtobufClient("localhost:54321", http.DefaultClient),
 		},
 	}))
 	go func() {

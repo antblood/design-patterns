@@ -1,7 +1,6 @@
 package observer
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"net/http"
@@ -10,12 +9,17 @@ import (
 )
 
 type Observer struct {
-	SubjectUrl string
+	subjectClient pb.Subject
+}
+
+func NewObserver(subjectUrl string) *Observer {
+	subjectClient := pb.NewSubjectProtobufClient(subjectUrl, http.DefaultClient)
+	return &Observer{subjectClient: subjectClient}
 }
 
 func (o Observer) Notify(ctx context.Context, in *pb.NotifyRequest) (*pb.NotifyResponse, error) {
 	fmt.Println("Observer: Received state change")
-	newState, err := http.Post(fmt.Sprintf("http://%s/twirp/subject.Subject/LatestState", o.SubjectUrl), "application/json", bytes.NewBuffer([]byte(`{}`)))
+	newState, err := o.subjectClient.LatestState(ctx, &pb.LatestStateRequest{})
 	if err != nil {
 		fmt.Println("Observer: Error getting new state", err)
 	}
