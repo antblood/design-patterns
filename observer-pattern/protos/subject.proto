@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package subject;
+
+option go_package = "observer-pattern/v1";
+
+// The Subject service definition.
+service Subject {
+    // Add an observer to the subject.
+    rpc Add (AddRequest) returns (AddResponse);
+    // Remove an observer from the subject.
+    rpc Remove (RemoveRequest) returns (RemoveResponse);
+    // Get the latest state of the subject.
+    rpc LatestState (LatestStateRequest) returns (LatestStateResponse);
+}
+
+// The message containing the state change information.
+message AddRequest {}
+
+// The response message containing confirmation of the notification.
+message AddResponse {}
+
+// The message containing the state change information.
+message RemoveRequest {}
+
+// The response message containing confirmation of the notification.
+message RemoveResponse {}
+
+// The message containing the state change information.
+message LatestStateRequest {}
+
+// The response message containing confirmation of the notification.
+message LatestStateResponse {}

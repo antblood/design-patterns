@@ -1,0 +1,15 @@
+version: v2
+
+plugins:
+  - local: protoc-gen-go
+    out: pkg/pb
+    opt:
+      - paths=source_relative
+
+  - local: protoc-gen-twirp
+    out: pkg/pb
+    opt:
+      - paths=source_relative
+
+inputs:
+  - directory: .

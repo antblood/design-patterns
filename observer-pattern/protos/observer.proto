@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package observer;
+
+option go_package = "observer-pattern/v1";
+
+// The Observer service definition.
+service Observer {
+  // Notify the observer with a state change.
+  rpc Notify (NotifyRequest) returns (NotifyResponse);
+}
+
+// The message containing the state change information.
+message NotifyRequest {}
+
+// The response message containing confirmation of the notification.
+message NotifyResponse {}
