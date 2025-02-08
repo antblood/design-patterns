@@ -12,6 +12,10 @@ service Subject {
     rpc Remove (RemoveRequest) returns (RemoveResponse);
     // Get the latest state of the subject.
     rpc LatestState (LatestStateRequest) returns (LatestStateResponse);
+    // Update the state of the subject.
+    rpc UpdateState (UpdateStateRequest) returns (UpdateStateResponse);
+    // Broadcast the state change to all observers.
+    rpc Broadcast (BroadcastRequest) returns (BroadcastResponse);
 }
 
 // The message containing the state change information.
@@ -30,4 +34,16 @@ message RemoveResponse {}
 message LatestStateRequest {}
 
 // The response message containing confirmation of the notification.
-message LatestStateResponse {}
+message LatestStateResponse {
+    string state = 1;
+}
+
+message UpdateStateRequest {
+    string state = 1;
+}
+
+message UpdateStateResponse {}
+
+message BroadcastRequest {}
+
+message BroadcastResponse {}

@@ -9,7 +9,9 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.Handle("/twirp/observer.Observer/", pb.NewObserverServer(&observer.Observer{}))
+	mux.Handle("/twirp/observer.Observer/", pb.NewObserverServer(&observer.Observer{
+		SubjectUrl: "localhost:12345",
+	}))
 
-	http.ListenAndServe(":12345", mux)
+	http.ListenAndServe(":54321", mux)
 }
