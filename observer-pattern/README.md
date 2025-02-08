@@ -32,15 +32,14 @@ In this implementation:
   - Request the latest state from the subject when notified.
   
 - **Methods:**
-  - `Notify()`: Called by the subject to notify the observer of a state change.
-  - `LatestState()`: Requests the latest state from the subject.
+  - `Notify()`: Called by the subject to notify the observer of a state change. In the same Requests the latest state from the subject.
 
 ## How It Works
 
 1. **Subject Initialization**: The subject starts with a modifiable list of observer URLs.
 2. **Observer Initialization**: Observers starts with the subject URL.
 3. **State Change**: The subject changes its state and broadcasts the change to all observers.
-4. **Notification**: Each observer's `Notify()` method is triggered and the observer requests the latest state from the subject.
+4. **Notification**: Each observer's `Notify()` method is triggered and the observer requests the latest state from the subject within the same method.
 
 ## Getting Started
 
@@ -51,6 +50,7 @@ To run this project, follow the steps below:
    ```bash
    git clone https://github.com/antblood/design-patterns.git
    cd design-patterns/observer-pattern
+   go mod tidy
    ```
 
 2. **Run the Subject**:
@@ -63,3 +63,4 @@ To run this project, follow the steps below:
 
    ```bash
    go run cmd/observer/main.go
+   ```
