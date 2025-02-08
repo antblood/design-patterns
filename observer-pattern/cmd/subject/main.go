@@ -1,8 +1,7 @@
 package main
 
 import (
-	"bytes"
-	"fmt"
+	"context"
 	"net/http"
 	"time"
 
@@ -12,25 +11,17 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.Handle("/twirp/subject.Subject/", pb.NewSubjectServer(&subject.Subject{
-		State: "initial",
-		Observers: []pb.Observer{
-			pb.NewObserverProtobufClient("localhost:54321", http.DefaultClient),
-		},
-	}))
+	subject := subject.NewSubject([]pb.Observer{
+		pb.NewObserverProtobufClient("http://localhost:54321", http.DefaultClient),
+	})
+	mux.Handle("/twirp/subject.Subject/", pb.NewSubjectServer(subject))
 	go func() {
 		for {
 			time.Sleep(3 * time.Second)
-			http.Post(
-				fmt.Sprintf("http://localhost:12345/twirp/subject.Subject/UpdateState"),
-				"application/json",
-				bytes.NewBuffer([]byte(`{"state": "updated"}`)),
-			)
-			http.Post(
-				fmt.Sprintf("http://localhost:12345/twirp/subject.Subject/Broadcast"),
-				"application/json",
-				bytes.NewBuffer([]byte(`{}`)),
-			)
+			subject.UpdateState(context.Background(), &pb.UpdateStateRequest{
+				State: "updated",
+			})
+			subject.Broadcast(context.Background(), &pb.BroadcastRequest{})
 		}
 	}()
 

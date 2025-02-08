@@ -16,6 +16,13 @@ type Subject struct {
 	State     string
 }
 
+func NewSubject(observers []pb.Observer) *Subject {
+	return &Subject{
+		Observers: observers,
+		State:     "initial",
+	}
+}
+
 func (s Subject) Add(ctx context.Context, in *pb.AddRequest) (*pb.AddResponse, error) {
 	// logic to add observer
 	return &pb.AddResponse{}, nil
