@@ -3,6 +3,7 @@ package subject
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	pb "github.com/antblood/observer-pattern/pkg/pb"
 )
@@ -16,7 +17,11 @@ type Subject struct {
 	State     string
 }
 
-func NewSubject(observers []pb.Observer) *Subject {
+func NewSubject(observerUrls []string) *Subject {
+	observers := make([]pb.Observer, len(observerUrls))
+	for i, url := range observerUrls {
+		observers[i] = pb.NewObserverProtobufClient(url, http.DefaultClient)
+	}
 	return &Subject{
 		Observers: observers,
 		State:     "initial",
