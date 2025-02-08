@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/antblood/observer-pattern/pkg/subject"
 	pb "github.com/antblood/observer-pattern/pkg/pb"
+	"github.com/antblood/observer-pattern/pkg/subject"
 )
 
 func main() {
