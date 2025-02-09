@@ -1,4 +1,4 @@
-# Beverage Decorator Pattern
+# Decorator Pattern
 
 This project demonstrates the implementation of the Decorator Pattern in Go. The pattern is used here to create a versatile beverage system where you can start with a base beverage and add various addons to it.
 
