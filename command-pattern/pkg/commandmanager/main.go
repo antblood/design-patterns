@@ -1,4 +1,4 @@
-package commandmanager
+package command_manager
 
 import "fmt"
 
@@ -17,7 +17,11 @@ type CommandManager struct {
 }
 
 func NewCommandManager() *CommandManager {
-	return &CommandManager{history: []Command{}, redoStack: []Command{}}
+	return &CommandManager{
+		history:      []Command{},
+		redoStack:    []Command{},
+		currentIndex: 0,
+	}
 }
 
 func (cm *CommandManager) ExecuteCommand(command Command) {
